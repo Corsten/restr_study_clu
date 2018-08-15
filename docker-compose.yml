@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/apps/CLU
+      - bundle_cache:/bundle_cache
+    command: sh -c 'bundle check || bundle install'
+    dns:
+      - 8.8.8.8
+
+volumes:
+  bundle_cache:
+
+
