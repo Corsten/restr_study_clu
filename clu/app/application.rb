@@ -1,12 +1,18 @@
 require_relative './listener'
 require_relative './feeds'
 require_relative './reader/reader'
+require_relative './converter/hash'
 require 'open-uri'
 
 options = Listener.listen(ARGV)
 
 if !options[:path].nil?
-  source_type = Reader.read(options[:path])
+  doc = Reader.read(options[:path])
+  #convert to hash array
+  hash = ToHash.from_xml(doc)
+
+  puts hash
+
 end
 
 #puts "Hello, #{options[:url]}" if options[:url]
