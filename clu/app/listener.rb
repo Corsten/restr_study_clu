@@ -8,6 +8,12 @@ class Listener
       opts.on('-p', '--path PATH', 'The path for input items') do |path|
         options[:path] = path
       end
+      opts.on('-r', '--revert', 'Revert items') do ||
+        options[:revert] = true
+      end
+      opts.on('-ts', '--tsort', 'Sort items by times') do ||
+        options[:revert] = true
+      end
       opts.on('-h', '--help', 'Show help message') do ||
         puts opts
       end

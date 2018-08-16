@@ -23,9 +23,6 @@ class Reader
     source_type = identify_source_type(path)
     doc = FileReader.read(path) if source_type == 'file'
     doc = UrlReader.read(path) if source_type == 'url'
-
-    puts doc
-
     doc
   end
 end
