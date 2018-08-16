@@ -4,12 +4,23 @@ require 'open-uri'
 options = Listener.listen(ARGV)
 
 unless options[:path].nil?
-  #get xml
+  #get input data
   doc = Reader.read(options[:path])
   #convert to hash
-  hash = ToHash.from_xml(doc)
+  hash = Parser.to_hash(doc)
 
   items = hash[:rss][:channel][:item]
 
-  Handler.process(items, options) unless items.empty?
+  #Precess manipulation with hash data. Sort, reverse, etc.
+  processed_data = Handler.process(items, options) unless items.empty?
+
+  supported_formats = ['rss', 'atom']
+
+  #Output format by default is rss
+  format = supported_formats.include?(options[:format]) ? options[:format] : 'rss'
+
+  puts format
+
+  #Convert to atom or rss
+  result = Converter.convert(processed_data, format)
 end

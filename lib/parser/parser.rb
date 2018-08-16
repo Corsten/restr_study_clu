@@ -1,5 +1,5 @@
-class ToHash
-  def self.from_xml(doc)
+class Parser
+  def self.to_hash(doc)
     return { doc.root.name.to_sym => xml_node_to_hash(doc.root) }
   end
 
