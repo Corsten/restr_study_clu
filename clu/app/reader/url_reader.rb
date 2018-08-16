@@ -1,5 +1,9 @@
+require 'nokogiri'
+
 class UrlReader
-  def read(path)
-    doc = Nokogiri::XML(open("#{options[:path]}"))
+  def self.read(path)
+    doc = Nokogiri::XML(open(path))
+
+
   end
 end
