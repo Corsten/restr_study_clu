@@ -12,7 +12,7 @@ class Listener
         options[:revert] = true
       end
       opts.on('-ts', '--tsort', 'Sort items by times') do ||
-        options[:revert] = true
+        options[:tsort] = true
       end
       opts.on('-h', '--help', 'Show help message') do ||
         puts opts

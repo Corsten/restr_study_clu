@@ -15,5 +15,5 @@ unless options[:path].nil?
 
   items = hash[:rss][:channel][:item]
 
-  Handler.process(items, options) if !items.empty?
+  Handler.process(items, options) unless items.empty?
 end

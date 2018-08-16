@@ -1,13 +1,17 @@
 class Handler
   def self.process(items, options)
-    puts "Items"
-
+    unless options[:revert].nil?
+      revert(items)
+    end
+    unless options[:tsort].nil?
+      tsort(items)
+    end
   end
-  def self.sort
-    puts "Call sort method run"
+  def self.tsort(items)
+    puts "Call sort method"
   end
 
-  def self.revert
-    puts "Call revert method run"
+  def self.revert(items)
+    puts "Call revert method"
   end
 end
