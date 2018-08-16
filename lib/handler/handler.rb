@@ -8,10 +8,14 @@ class Handler
     end
   end
   def self.tsort(items)
-    puts "Call sort method"
+    items.each do ||
+      puts
+    end
+    #items.sort_by { |kay, value| DateTime.parse(value[:pubDate].to_time.to_i) }
+    #items.revers unless items.empty?
   end
 
   def self.revert(items)
-    puts "Call revert method"
+    items.reverse!
   end
 end

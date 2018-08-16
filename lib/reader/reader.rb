@@ -1,5 +1,3 @@
-require_relative './file_reader'
-require_relative './url_reader'
 require 'uri'
 
 class Reader
