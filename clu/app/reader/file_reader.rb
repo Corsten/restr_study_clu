@@ -1,5 +1,3 @@
-class FileReader < Reader
-  def read(path)
+class FileReader
 
-  end
 end

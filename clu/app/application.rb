@@ -5,9 +5,8 @@ require 'open-uri'
 
 options = Listener.listen(ARGV)
 
-if options[:path].present?
-
-  puts doc
+if !options[:path].nil?
+  source_type = Reader.identify_source_type(options[:path])
 end
 
 #puts "Hello, #{options[:url]}" if options[:url]

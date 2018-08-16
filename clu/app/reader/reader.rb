@@ -3,10 +3,7 @@ require_relative './url_reader'
 require 'uri'
 
 class Reader
-  def initialize
-  end
-
-  def identifySourceType(path)
+  def self.identify_source_type(path)
     uri = URI.parse(path)
     if uri.scheme == 'http' or uri.scheme == 'https'
       # It is a web URL
@@ -23,8 +20,9 @@ class Reader
   end
 
   def read(path)
-    sourceType = identifySourceType(path)
-    FileReader.read(path) if sourceType == 'file'
-    UrlReader.read(path) if sourceType == 'url'
+    source_type = identify_source_type(path)
+    doc = FileReader.read(path) if source_type == 'file'
+    doc = UrlReader.read(path) if source_type == 'url'
+    doc
   end
 end
