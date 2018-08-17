@@ -1,7 +1,8 @@
 class Handler
   def self.process(items, options)
-    revert(items) unless options[:revert].nil?
-    tsort(items) unless options[:tsort].nil?
+    items = revert(items) unless options[:revert].nil?
+    items = tsort(items) unless options[:tsort].nil?
+    items
   end
 
   def self.tsort(items)
