@@ -38,12 +38,12 @@ class Parser
           #if there is a collision then node content supersets attributes
           result_hash = attributes.merge(result_hash)
         end
-        return result_hash
+        result_hash
       else
-        return attributes
+        attributes
       end
     else
-      return node.content.to_s
+      node.content.to_s
     end
   end
 end
