@@ -7,19 +7,16 @@ unless options[:path].nil?
   #get input data
   doc = Reader.read(options[:path])
   #convert to hash
-  hash = Parser.to_hash(doc)
+  hash = doc.nil? ? {} : Parser.to_hash(doc)
+
+  puts hash
 
   items = hash[:rss][:channel][:item]
-
   #Precess manipulation with hash data. Sort, reverse, etc.
-  processed_data = Handler.process(items, options) unless items.empty?
-
-  supported_formats = ['rss', 'atom']
-
+  processed_data = items.nil? && items.empty? ? Handler.process(items, options) : {}
+  supported_formats = %w[rss atom]
   #Output format by default is rss
   format = supported_formats.include?(options[:format]) ? options[:format] : 'rss'
-
-  puts format
 
   #Convert to atom or rss
   result = Converter.convert(processed_data, format)
