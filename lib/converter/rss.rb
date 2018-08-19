@@ -1,33 +1,27 @@
 require 'rss'
 
 class RssConverter
-  def initialize
-    @about = 'Rest test rss converter'
-    @title = 'Test title'
-    @link = 'Test link'
-    @description = 'Test description'
-    @language = 'Test language'
-  end
-
   def self.convert(hash, items)
     rss = RSS::Maker.make("2.0") do |m|
-      if !hash[:rss][:channel].nil?
+      if !hash[:rss].nil?
         hash[:rss][:channel].each do |key, value|
           if m.channel.respond_to?(key.to_s)
             m.channel.send(:"#{key.to_sym}=", value.to_s)
           end
         end
       else
-        m.channel.about = @about
-        m.channel.title = @title
-        m.channel.link = @link
-        m.channel.description = @description
-        m.channel.language = @language
+        m.channel.about = 'Rest test rss converter'
+        m.channel.title = 'Test title'
+        m.channel.link = 'Test link'
+        m.channel.description = 'Test description'
+        m.channel.language = 'Test language'
       end
       m.channel.updated = Time.now
+
       items.each do |data_item|
+        puts data_item
         m.items.new_item do |item|
-          item.guid.content = data_item[:guid] unless data_item[:guid].nil?
+          item.guid.content = data_item[:guid] ? data_item[:guid] : data_item[:id]
           item.title = data_item[:title] unless data_item[:title].nil?
           item.link = data_item[:link] unless data_item[:link].nil?
           item.description = "<![CDATA[#{data_item[:description][:'#cdata-section']}]]>" unless data_item[:description].nil?

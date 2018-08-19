@@ -13,7 +13,7 @@ class Application
       hash = doc.nil? ? {} : Parser.to_hash(doc)
       items = Parser.get_items(hash, doc.nil? ? '' : Parser.get_input_format(doc))
       #Precess manipulation with hash data. Sort, reverse, etc.
-      items = !items.empty? ? Handler.process(items, options) : {}
+      items = !items.empty? ? Handler.process(items, options) : []
       #Output format by default is rss
       supported_formats = %w[rss atom]
       format = supported_formats.include?(options[:format]) ? options[:format] : 'rss'

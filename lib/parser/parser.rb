@@ -54,9 +54,9 @@ class Parser
   end
 
   def self.get_items(hash, format)
-    items = {}
+    items = []
     items = hash[:rss][:channel][:item] if format == 'rss'
-    items = hash[:feed][:entry] if format == 'atom'
+    items = [hash[:feed][:entry]] if format == 'atom'
     items
   end
 end
