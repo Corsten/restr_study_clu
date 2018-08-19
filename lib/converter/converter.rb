@@ -1,8 +1,9 @@
 require 'nokogiri'
 
 class Converter
-  def self.convert(data, format)
-    AtomConverter.convert(data) if format == "atom"
-    RssConverter.convert(data) if format == "rss"
+  def self.convert(hash, items, format)
+    result = AtomConverter.convert(hash, items) if format == 'atom'
+    result = RssConverter.convert(hash, items) if format == 'rss'
+    result
   end
 end

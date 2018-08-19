@@ -11,15 +11,14 @@ class Application
       doc = Reader.read(options[:path])
       #convert to hash
       hash = doc.nil? ? {} : Parser.to_hash(doc)
-      items = hash[:rss][:channel][:item]
+      items = Parser.get_items(hash, doc.nil? ? '' : Parser.get_input_format(doc))
       #Precess manipulation with hash data. Sort, reverse, etc.
-      hash[:rss][:channel][:item] = !items.empty? ? Handler.process(items, options) : {}
-      supported_formats = %w[rss atom]
+      items = !items.empty? ? Handler.process(items, options) : {}
       #Output format by default is rss
+      supported_formats = %w[rss atom]
       format = supported_formats.include?(options[:format]) ? options[:format] : 'rss'
       #Convert to atom or rss
-      result = Converter.convert(hash, format)
-      puts "result"
+      result = Converter.convert(hash, items, format)
       puts result
     end
   end

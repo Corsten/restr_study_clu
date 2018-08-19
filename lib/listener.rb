@@ -17,7 +17,7 @@ class Listener
       opts.on('-h', '--help', 'Show help message') do ||
         puts opts
       end
-      opts.on('-o', '--out', 'Result format type. atom or rss') do |format|
+      opts.on('-o', '--out FORMAT', 'Result format type. atom or rss') do |format|
         options[:format] = format
       end
     end

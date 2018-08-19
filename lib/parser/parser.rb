@@ -1,6 +1,12 @@
 class Parser
   def self.to_hash(doc)
-    return { doc.root.name.to_sym => xml_node_to_hash(doc.root) }
+    { doc.root.name.to_sym => xml_node_to_hash(doc.root) }
+  end
+
+  def self.get_input_format(doc)
+    input_format = 'atom' if doc.root.name == 'feed'
+    input_format = 'rss' if doc.root.name == 'rss'
+    input_format
   end
 
   def self.xml_node_to_hash(node)
@@ -27,7 +33,7 @@ class Parser
             if result_hash[child.name.to_sym].is_a?(Object::Array)
               result_hash[child.name.to_sym] << result
             else
-              result_hash[child.name.to_sym] = [result_hash[child.name.to_sym]] << result
+              result_hash[child.name.to_sym] = [result_hash[child.name.to_sym]]
             end
           else
             result_hash[child.name.to_sym] = result
@@ -45,5 +51,12 @@ class Parser
     else
       node.content.to_s
     end
+  end
+
+  def self.get_items(hash, format)
+    items = {}
+    items = hash[:rss][:channel][:item] if format == 'rss'
+    items = hash[:feed][:entry] if format == 'atom'
+    items
   end
 end
