@@ -19,7 +19,6 @@ class RssConverter
       m.channel.updated = Time.now
 
       items.each do |data_item|
-        puts data_item
         m.items.new_item do |item|
           item.guid.content = data_item[:guid] ? data_item[:guid] : data_item[:id]
           item.title = data_item[:title] unless data_item[:title].nil?
