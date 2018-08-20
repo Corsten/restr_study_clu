@@ -3,7 +3,12 @@ class Handler
     @options = options
   end
 
-  def process(items)
+  def item(data)
+
+  end
+
+  def process(data)
+    items =
     items = revert(items) unless @options[:revert].nil?
     items = tsort(items) unless @options[:tsort].nil?
     items

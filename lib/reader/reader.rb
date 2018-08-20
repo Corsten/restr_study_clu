@@ -1,16 +1,12 @@
 require 'uri'
 
 class Reader
-  def initialize(options)
-    @options = options
-  end
-
-  def identify_source_type
-    uri = URI.parse(@options[:path])
+  def identify_source_type(source)
+    uri = URI.parse(source)
     protocols = %w[http https]
     if protocols.include? uri.scheme
       type = 'url'
-    elsif File.file?(@options[:path])
+    elsif File.file?(source)
       type = 'file'
     else
       type = 'unknown'
@@ -20,10 +16,10 @@ class Reader
     type
   end
 
-  def read
-    source_type = identify_source_type
-    doc = FileReader.read(@options[:path]) if source_type == 'file'
-    doc = UrlReader.read(@options[:path]) if source_type == 'url'
+  def read(source)
+    source_type = identify_source_type(source)
+    doc = FileReader.read(source) if source_type == 'file'
+    doc = UrlReader.read(source) if source_type == 'url'
     doc
   end
 end

@@ -1,10 +1,7 @@
 class Parser
-  def initialize
-    @input_format = ''
-  end
   def parse(doc)
-    @input_format = input_format(doc)
-    { doc.root.name.to_sym => xml_node_to_hash(doc.root) }
+
+    { doc.root.name.to_sym => prepare_items(xml_node_to_hash(doc.root), input_format(doc)) }
   end
 
   def input_format(doc)
@@ -57,10 +54,8 @@ class Parser
     end
   end
 
-  def items(hash)
-    items = []
-    items = AtomItems.items(hash) if @input_format == 'atom'
-    items = RssItems.items(hash) if @input_format == 'rss'
-    items
+  def prepare_items(hash, input_format)
+    Atom.prepare_items(hash) if input_format == 'atom'
+    Rss.prepare_items(hash) if input_format == 'rss'
   end
 end

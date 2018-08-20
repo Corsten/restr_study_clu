@@ -8,19 +8,18 @@ class Application
 
   def self.run(options)
     result = ''
-    reader = Reader.new(options)
-    source_data = reader.read
+    reader = Reader.new
+    source_data = reader.read(options[:path])
 
     if source_data
       parser = Parser.new
-      data = parser.parse(source_data)
-      items = parser.items(data)
+      parsed_data = parser.parse(source_data)
 
-      handler = Handler.new(options)
-      items = handler.process(items)
+      handler = Handler.new(revert: options[:revert], tsort: options[:tsort])
+      processed_data = handler.process(parsed_data)
 
       converter = Converter.new(options)
-      result = converter.convert({data:data, items:items})
+      result = converter.convert({data:processed_data, items:items})
     end
 
     puts result

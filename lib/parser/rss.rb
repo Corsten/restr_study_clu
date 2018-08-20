@@ -1,12 +1,10 @@
-class RssItems
-  def self.items(hash)
-    items = []
-    items = hash[:rss][:channel][:item] if hash[:rss]
-    items.each do |item|
+class Rss
+  def self.prepare_items(hash)
+    hash[:channel][:item].each do |item|
       item[:id] = item.delete(:guid) if item[:guid]
       item[:published] = item.delete(:pubDate) if item[:pubDate]
       item[:additional] = item.delete(:enclosure) if item[:enclosure]
     end
-    items
+    hash
   end
 end
