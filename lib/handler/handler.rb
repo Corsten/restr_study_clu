@@ -6,7 +6,7 @@ class Handler
   end
 
   def self.tsort(items)
-    items.sort_by! { |item| DateTime.parse(item[:pubDate]).to_time.to_i }
+    items.sort_by! { |item| DateTime.parse(item[:published]).to_time.to_i }
   end
 
   def self.revert(items)

@@ -5,6 +5,7 @@ require_rel 'parser'
 require 'open-uri'
 
 class Application
+  @supported_formats = %w[rss atom]
   def self.run(options)
     unless options[:path].nil?
       #get input data
@@ -15,8 +16,7 @@ class Application
       #Precess manipulation with hash data. Sort, reverse, etc.
       items = !items.empty? ? Handler.process(items, options) : []
       #Output format by default is rss
-      supported_formats = %w[rss atom]
-      format = supported_formats.include?(options[:format]) ? options[:format] : 'rss'
+      format = @supported_formats.include?(options[:format]) ? options[:format] : 'rss'
       #Convert to atom or rss
       result = Converter.convert(hash, items, format)
       puts result
