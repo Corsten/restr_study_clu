@@ -1,7 +1,7 @@
 require 'nokogiri'
 
 class FileReader
-  def self.read(path)
-    File.open(path) { |f| Nokogiri::XML(f) }
+  def self.read(source)
+    File.open(source) { |f| Nokogiri::XML(f) }
   end
 end

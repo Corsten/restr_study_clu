@@ -7,10 +7,10 @@ class Converter
     @options = options
   end
 
-  def convert(options)
-    format = FORMATS.include?(options[:format]) ? options[:format] : 'rss'
-    result = AtomConverter.convert(options[:data], options[:items]) if format == 'atom'
-    result = RssConverter.convert(options[:data], options[:items]) if format == 'rss'
+  def convert(data)
+    format = FORMATS.include?(@options[:format]) ? @options[:format] : 'rss'
+    result = AtomConverter.convert(data) if format == 'atom'
+    result = RssConverter.convert(data) if format == 'rss'
     result
   end
 end

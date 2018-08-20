@@ -1,9 +1,9 @@
 require 'rss'
 
 class AtomConverter
-  def self.convert(hash, items)
+  def self.convert(data)
     atom = RSS::Maker.make('atom') do |m|
-      hash[:feed]&.each do |key, value|
+      data[:feed]&.each do |key, value|
         if m.channel.respond_to?(key.to_s)
           m.channel.send(:"#{key.to_sym}=", value.to_s)
         end
@@ -15,7 +15,7 @@ class AtomConverter
 
       m.channel.updated = Time.now
 
-      items.each do |data_item|
+      data[:items].each do |data_item|
         m.items.new_item do |item|
           item.id = data_item[:id] unless data_item[:id]
           item.title = data_item[:title] unless data_item[:title].nil?

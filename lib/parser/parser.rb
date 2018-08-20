@@ -1,7 +1,6 @@
 class Parser
   def parse(doc)
-
-    { doc.root.name.to_sym => prepare_items(xml_node_to_hash(doc.root), input_format(doc)) }
+    prepare_items(xml_node_to_hash(doc.root), input_format(doc))
   end
 
   def input_format(doc)
@@ -55,7 +54,8 @@ class Parser
   end
 
   def prepare_items(hash, input_format)
-    Atom.prepare_items(hash) if input_format == 'atom'
-    Rss.prepare_items(hash) if input_format == 'rss'
+    hash = Atom.prepare_items(hash) if input_format == 'atom'
+    hash = Rss.prepare_items(hash) if input_format == 'rss'
+    hash
   end
 end

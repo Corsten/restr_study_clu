@@ -9,7 +9,7 @@ class Application
   def self.run(options)
     result = ''
     reader = Reader.new
-    source_data = reader.read(options[:path])
+    source_data = reader.read(options[:source])
 
     if source_data
       parser = Parser.new
@@ -18,8 +18,8 @@ class Application
       handler = Handler.new(revert: options[:revert], tsort: options[:tsort])
       processed_data = handler.process(parsed_data)
 
-      converter = Converter.new(options)
-      result = converter.convert({data:processed_data, items:items})
+      converter = Converter.new(format: options[:format])
+      result = converter.convert(processed_data)
     end
 
     puts result

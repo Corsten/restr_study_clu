@@ -5,8 +5,8 @@ class Listener
     options = {}
 
     opts = OptionParser.new do |opts|
-      opts.on('-p', '--path PATH', 'The path for input items') do |path|
-        options[:path] = path
+      opts.on('-p', '--source SOURCE', 'The source for input items') do |source|
+        options[:source] = source
       end
       opts.on('-r', '--revert', 'Revert items') do ||
         options[:revert] = true

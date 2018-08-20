@@ -1,7 +1,7 @@
 require 'nokogiri'
 
 class UrlReader
-  def self.read(path)
-    Nokogiri::XML(open(path))
+  def self.read(source)
+    Nokogiri::XML(open(source))
   end
 end

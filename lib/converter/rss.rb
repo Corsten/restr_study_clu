@@ -1,10 +1,10 @@
 require 'rss'
 
 class RssConverter
-  def self.convert(hash, items)
+  def self.convert(data)
     rss = RSS::Maker.make("2.0") do |m|
-      unless hash[:rss].nil?
-        hash[:rss][:channel]&.each do |key, value|
+      unless data[:rss].nil?
+        data[:rss][:channel]&.each do |key, value|
           if m.channel.respond_to?(key.to_s)
             m.channel.send(:"#{key.to_sym}=", value.to_s)
           end
@@ -19,7 +19,7 @@ class RssConverter
 
       m.channel.updated = Time.now
 
-      items.each do |data_item|
+      data[:items].each do |data_item|
         m.items.new_item do |item|
           item.guid.content = data_item[:id] unless data_item[:id].nil?
           item.title = data_item[:title] unless data_item[:title].nil?
