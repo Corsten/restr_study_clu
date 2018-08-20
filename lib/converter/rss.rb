@@ -25,7 +25,7 @@ class RssConverter
           item.title = data_item[:title] unless data_item[:title].nil?
           item.link = data_item[:link] unless data_item[:link].nil?
           item.description = "<![CDATA[#{data_item[:description][:'#cdata-section']}]]>" unless data_item[:description].nil?
-          item.pubDate = data_item[:published] unless data_item[:published].nil?
+          item.pubDate = data_item[:published] ? data_item[:published] : Time.now
           unless data_item[:additional].nil?
             if data_item[:additional].kind_of?(Array)
               data_item[:additional].each do |enclosure_item|

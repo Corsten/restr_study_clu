@@ -1,3 +1,5 @@
+require 'rss'
+
 class AtomConverter
   def self.convert(hash, items)
     atom = RSS::Maker.make('atom') do |m|
@@ -15,9 +17,9 @@ class AtomConverter
 
       items.each do |data_item|
         m.items.new_item do |item|
-          item.id = data_item[:guid] ? data_item[:guid] : data_item[:id]
+          item.id = data_item[:id] unless data_item[:id]
           item.title = data_item[:title] unless data_item[:title].nil?
-          item.link = data_item[:link] ? data_item[:link] : data_item[:link][0]
+          item.link = data_item[:link] unless data_item[:link].nil?
           item.updated = Time.now
           item.description = "<![CDATA[#{data_item[:description][:'#cdata-section']}]]>" unless data_item[:description].nil?
           item.published = data_item[:published] ? Time.parse(data_item[:published]) : Time.now
