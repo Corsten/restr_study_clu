@@ -1,5 +1,5 @@
 class RssItems
-  def self.getItems(hash)
+  def self.items(hash)
     items = []
     items = hash[:rss][:channel][:item] if hash[:rss]
     items.each do |item|

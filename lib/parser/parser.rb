@@ -1,15 +1,19 @@
 class Parser
-  def self.to_hash(doc)
+  def initialize
+    @input_format = ''
+  end
+  def parse(doc)
+    @input_format = input_format(doc)
     { doc.root.name.to_sym => xml_node_to_hash(doc.root) }
   end
 
-  def self.get_input_format(doc)
+  def input_format(doc)
     input_format = 'atom' if doc.root.name == 'feed'
     input_format = 'rss' if doc.root.name == 'rss'
     input_format
   end
 
-  def self.xml_node_to_hash(node)
+  def xml_node_to_hash(node)
     # If we are at the root of the document, start the hash
     if node.element?
       result_hash = {}
@@ -53,10 +57,10 @@ class Parser
     end
   end
 
-  def self.get_items(hash, format)
+  def items(hash)
     items = []
-    items = AtomItems.getItems(hash) if format == 'atom'
-    items = RssItems.getItems(hash) if format == 'rss'
+    items = AtomItems.items(hash) if @input_format == 'atom'
+    items = RssItems.items(hash) if @input_format == 'rss'
     items
   end
 end

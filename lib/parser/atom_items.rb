@@ -1,5 +1,5 @@
 class AtomItems
-  def self.getItems(hash)
+  def self.items(hash)
     items = []
     items = [hash[:feed][:entry]] if hash[:feed]
     items.each do |item|
