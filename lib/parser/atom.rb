@@ -1,10 +1,10 @@
 class Atom
-  def self.prepare_items(hash)
-    hash[:item] = []
-    hash[:feed][:entry]&.each do |key, item|
+  def self.prepare_items(data)
+    data[:item] = []
+    data[:feed][:entry]&.each do |item|
       item[:link] = item[:link][0][:href] if item[:link]
-      (hash[:items] ||= []).push(item)
+      (data[:items] ||= []).push(item)
     end
-    hash
+    data
   end
 end

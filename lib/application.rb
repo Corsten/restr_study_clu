@@ -23,6 +23,5 @@ class Application
     end
 
     puts result
-
   end
 end

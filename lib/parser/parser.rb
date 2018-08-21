@@ -1,7 +1,7 @@
 class Parser
   def parse(doc)
     if doc.root
-      result = prepare_items(xml_node_to_hash(doc.root), input_format(doc))
+      result = prepare_items(xml_parse(doc.root), input_format(doc))
     elsif
       result = {}
     end
@@ -14,10 +14,9 @@ class Parser
     input_format
   end
 
-  def xml_node_to_hash(node)
-    # If we are at the root of the document, start the hash
+  def xml_parse(node)
     if node.element?
-      result_hash = {}
+      result_data = {}
       if node.attributes != {}
         attributes = {}
         node.attributes.keys.each do |key|
@@ -26,30 +25,28 @@ class Parser
       end
       if node.children.size > 0
         node.children.each do |child|
-          result = xml_node_to_hash(child)
+          result = xml_parse(child)
 
           if child.name == "text"
             unless child.next_sibling || child.previous_sibling
               return result unless attributes
-              result_hash[child.name.to_sym] = result
+              result_data[child.name.to_sym] = result
             end
-          elsif result_hash[child.name.to_sym]
+          elsif result_data[child.name.to_sym]
 
-            if result_hash[child.name.to_sym].is_a?(Object::Array)
-              result_hash[child.name.to_sym] << result
+            if result_data[child.name.to_sym].is_a?(Object::Array)
+              result_data[child.name.to_sym] << result
             else
-              result_hash[child.name.to_sym] = [result_hash[child.name.to_sym]]
+              result_data[child.name.to_sym] = [result_data[child.name.to_sym]]
             end
           else
-            result_hash[child.name.to_sym] = result
+            result_data[child.name.to_sym] = result
           end
         end
         if attributes
-          #add code to remove non-data attributes e.g. xml schema, namespace here
-          #if there is a collision then node content supersets attributes
-          result_hash = attributes.merge(result_hash)
+          result_data = attributes.merge(result_data)
         end
-        result_hash
+        result_data
       else
         attributes
       end
@@ -58,9 +55,9 @@ class Parser
     end
   end
 
-  def prepare_items(hash, input_format)
-    hash = Atom.prepare_items(hash) if input_format == 'atom'
-    hash = Rss.prepare_items(hash) if input_format == 'rss'
-    hash
+  def prepare_items(data, input_format)
+    prepared_data = Atom.prepare_items(data) if input_format == 'atom'
+    prepared_data = Rss.prepare_items(data) if input_format == 'rss'
+    prepared_data
   end
 end
