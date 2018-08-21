@@ -1,6 +1,11 @@
 class Parser
   def parse(doc)
-    prepare_items(xml_node_to_hash(doc.root), input_format(doc))
+    if doc.root
+      result = prepare_items(xml_node_to_hash(doc.root), input_format(doc))
+    elsif
+      result = {}
+    end
+    result
   end
 
   def input_format(doc)

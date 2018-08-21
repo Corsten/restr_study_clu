@@ -15,7 +15,7 @@ class AtomConverter
 
       m.channel.updated = Time.now
 
-      data[:items].each do |data_item|
+      data[:items]&.each do |data_item|
         m.items.new_item do |item|
           item.id = data_item[:id] unless data_item[:id]
           item.title = data_item[:title] unless data_item[:title].nil?
