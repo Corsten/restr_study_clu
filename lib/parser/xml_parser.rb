@@ -1,15 +1,9 @@
-class Parser
-  def parse(doc)
-    doc.root ? prepare_items(xml_parse(doc.root), input_format(doc)) : {}
+class XmlParser
+  def self.can_pars?(doc)
+    false
   end
 
-  def input_format(doc)
-    input_format = 'atom' if doc.root.name == 'feed'
-    input_format = 'rss' if doc.root.name == 'rss'
-    input_format
-  end
-
-  def xml_parse(node)
+  def self.parse(node)
     if node.element?
       result_data = {}
       if node.attributes != {}
@@ -20,7 +14,7 @@ class Parser
       end
       if node.children.size > 0
         node.children.each do |child|
-          result = xml_parse(child)
+          result = parse(child)
 
           if child.name == "text"
             unless child.next_sibling || child.previous_sibling
@@ -48,11 +42,5 @@ class Parser
     else
       node.content.to_s
     end
-  end
-
-  def prepare_items(data, input_format)
-    prepared_data = Atom.prepare_items(data) if input_format == 'atom'
-    prepared_data = Rss.prepare_items(data) if input_format == 'rss'
-    prepared_data
   end
 end

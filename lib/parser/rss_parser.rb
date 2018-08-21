@@ -1,5 +1,15 @@
-class Rss
-  def self.prepare_items(data)
+require_rel 'xml_parser'
+
+class RssParser < XmlParser
+  def self.can_pars?(doc)
+    doc.root.name == 'rss'
+  end
+
+  def parse(doc)
+    doc.root ? prepare_items(XmlParser.parse(doc.root)) : {}
+  end
+
+  def prepare_items(data)
     data[:items] = []
     data[:channel][:item]&.each do |item|
       item[:id] = item.delete(:guid) if item[:guid]
