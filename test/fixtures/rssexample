@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <language>ru</language>
+    <title>Test Rest title</title>
+    <description>Новости, статьи, фотографии, видео. Семь дней в неделю, 24 часа в сутки</description>
+    <link>https://lenta.ru</link>
+    <image>
+      <url>https://assets.lenta.ru/small_logo.png</url>
+      <title>Lenta.ru</title>
+      <link>https://lenta.ru</link>
+      <width>134</width>
+      <height>22</height>
+    </image>
+    <atom:link rel="self" type="application/rss+xml" href="http://lenta.ru/rss"/>
+    <item>
+      <guid>https://lenta.ru/news/2018/08/17/gulman/</guid>
+      <title>Свободолюбивая обезьяна спрыгнула с 50-метровой вышки и выжила</title>
+      <link>https://lenta.ru/news/2018/08/17/gulman/</link>
+      <description>
+        <![CDATA[Прыжок обезьяны с 50-метровой электровышки попал на видео. Местные жители пытались приманить гульмана бананами и орехами. Вызванные ими зоозащитники даже полезли за ним на вышку, которую обесточили на три часа ради спасения обезьяны. Однако обезьяна не приняла помощь людей и спрыгнула на землю сама.]]>
+      </description>
+      <pubDate>Fri, 17 Aug 2018 08:34:31 +0300</pubDate>
+      <enclosure url="https://icdn.lenta.ru/images/2018/08/16/18/20180816180900967/pic_fc9e87f9eae3aab8bba37a291cbdabad.jpg" length="68394" type="image/jpeg"/>
+      <category>Из жизни</category>
+    </item>
+    <item>
+      <guid>https://lenta.ru/news/2018/08/17/harold/</guid>
+      <title>Скрывающий боль Гарольд переоделся в женщину</title>
+      <link>https://lenta.ru/news/2018/08/17/harold/</link>
+      <description>
+        <![CDATA[Герой популярного мема «Гарольд, скрывающий боль» Арато Андраш предстал в образе женщины в рекламе ноутбука. В видео Андраш вновь сыграл Гарольда. По сюжету к нему домой пришли курьеры, которые принесли новый мощный ноутбук. Мужчина схватил его и быстро побежал играть, а доставщики зашли за ним в квартиру.]]>
+      </description>
+      <pubDate>Fri, 17 Aug 2018 08:02:49 +0300</pubDate>
+      <enclosure url="https://icdn.lenta.ru/images/2018/08/16/20/20180816200139942/pic_19c66566baf55357dc56d9afc89a8a47.jpg" length="29067" type="image/jpeg"/>
+      <category>Интернет и СМИ</category>
+    </item>
+  </channel>
+</rss>
