@@ -3,7 +3,7 @@ require_rel 'concerns/xml_parser'
 class RssParser
   include XmlParser
 
-  def self.can_pars?(doc)
+  def self.can_parse?(doc)
     doc.root.name == 'rss'
   end
 

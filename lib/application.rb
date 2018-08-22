@@ -19,7 +19,7 @@ class Application
 
   def parser_factory(options)
     parsers_list = options[:loader].load('parser')
-    parser_object = parsers_list.find { |parser| parser.can_pars?(options[:source]) }
+    parser_object = parsers_list.find { |parser| parser.can_parse?(options[:source]) }
     parser = parser_object.new
     parser
   end
@@ -33,13 +33,13 @@ class Application
 
   def converter_factory(options)
     converters_list = options[:loader].load('converter')
-    converter_object = converters_list.find { |parser| parser.can_convert?(options[:format]) }
+    converter_object = converters_list.find { |converter| converter.can_convert?(options[:format]) }
     converter = converter_object.new
     converter
   end
 
   def run(source)
-    result = ''
+    result = nil
 
     object_loader = ObjectLoader.new(root_dir: './lib')
 
