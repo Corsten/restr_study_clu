@@ -17,17 +17,22 @@ class Application
     reader
   end
 
-  def parser_factory(loader, source_data)
+  def parser_factory(loader, source)
     parser_objects = loader.load('parser')
-    parser_object = Object.const_get(parser_objects.find { |parser| Object.const_get(parser).can_pars?(source_data) })
-
+    parser_object = Object.const_get(parser_objects.find { |parser| Object.const_get(parser).can_pars?(source) })
     parser = parser_object.new
     parser
   end
 
+  def converter_factory(loader, format)
+    converter_objects = loader.load('converter')
+    converter_object = Object.const_get(converter_objects.find { |parser| Object.const_get(parser).can_convert?(format) })
+    converter = converter_object.new
+    converter
+  end
+
   def run(source)
     result = ''
-    source_data = nil
 
     loader = Loader.new('./lib')
 
@@ -41,10 +46,10 @@ class Application
       handler = Handler.new(revert: @options[:revert], tsort: @options[:tsort])
       processed_data = handler.process(parsed_data)
 
-      converter = Converter.new(format: @options[:format])
+      converter = converter_factory(loader, @options[:format])
       result = converter.convert(processed_data)
     end
 
-    #puts result
+    puts result
   end
 end

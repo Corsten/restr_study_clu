@@ -22,11 +22,11 @@ class XmlParser
               result_data[child.name.to_sym] = result
             end
           elsif result_data[child.name.to_sym]
-
             if result_data[child.name.to_sym].is_a?(Object::Array)
-              result_data[child.name.to_sym] << result
+              result_data[child.name.to_sym] = result
             else
-              result_data[child.name.to_sym] = [result_data[child.name.to_sym]]
+              result_data[child.name.to_sym] = [result_data[child.name.to_sym]] << result
+              #puts result_data[child.name.to_sym]
             end
           else
             result_data[child.name.to_sym] = result

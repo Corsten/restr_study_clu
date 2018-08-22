@@ -1,7 +1,11 @@
 require 'rss'
 
 class AtomConverter
-  def self.convert(data)
+  def self.can_convert?(format)
+    format == 'atom'
+  end
+
+  def convert(data)
     atom = RSS::Maker.make('atom') do |m|
       data[:feed]&.each do |key, value|
         if m.channel.respond_to?(key.to_s)

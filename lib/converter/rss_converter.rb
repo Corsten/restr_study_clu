@@ -1,7 +1,11 @@
 require 'rss'
 
 class RssConverter
-  def self.convert(data)
+  def self.can_convert?(format)
+    format == 'rss'
+  end
+
+  def convert(data)
     rss = RSS::Maker.make("2.0") do |m|
       unless data[:rss].nil?
         data[:rss][:channel]&.each do |key, value|
