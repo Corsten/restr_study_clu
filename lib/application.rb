@@ -2,7 +2,7 @@ require_rel 'converter'
 require_rel 'reader'
 require_rel 'handler'
 require_rel 'parser'
-require_rel 'loader'
+require_rel 'object_loader'
 require 'open-uri'
 
 class Application
