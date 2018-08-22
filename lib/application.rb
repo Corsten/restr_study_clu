@@ -34,19 +34,19 @@ class Application
   def run(source)
     result = ''
 
-    loader = Loader.new('./lib')
+    object_loader = ObjectLoader.new(root_dir: './lib')
 
-    reader = reader_factory(loader, source)
+    reader = reader_factory(object_loader, source)
     source_data = reader.read(source)
 
     if source_data
-      parser = parser_factory(loader, source_data)
+      parser = parser_factory(object_loader, source_data)
       parsed_data = parser.parse(source_data)
 
       handler = Handler.new(revert: @options[:revert], tsort: @options[:tsort])
       processed_data = handler.process(parsed_data)
 
-      converter = converter_factory(loader, @options[:format])
+      converter = converter_factory(object_loader, @options[:format])
       result = converter.convert(processed_data)
     end
 
