@@ -3,7 +3,7 @@ class RevertHandler
     options[:revert]
   end
 
-  def handle(data)
+  def handle!(data)
     data[:items]&.reverse!
     data
   end
