@@ -4,5 +4,5 @@ require_rel '../lib/listener.rb'
 
 options = Listener.listen(ARGV)
 
-application = Application.new(revert: options[:tsort], tsort: options[:tsort], format: options[:format])
+application = Application.new(revert: options[:revert], tsort: options[:tsort], format: options[:format])
 application.run(options[:source])

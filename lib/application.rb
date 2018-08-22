@@ -24,6 +24,13 @@ class Application
     parser
   end
 
+  def handler_factory(loader, options)
+    handler_list = loader.load('handler')
+    handler_object = handler_list.find { |handler| handler.can_handle?(options) }
+    handler = handler_object.new
+    handler
+  end
+
   def converter_factory(loader, format)
     converters_list = loader.load('converter')
     converter_object = converters_list.find { |parser| parser.can_convert?(format) }
@@ -43,8 +50,11 @@ class Application
       parser = parser_factory(object_loader, source_data)
       parsed_data = parser.parse(source_data)
 
-      handler = Handler.new(revert: @options[:revert], tsort: @options[:tsort])
-      processed_data = handler.process(parsed_data)
+      handler = handler_factory(object_loader, @options)
+      processed_data = handler.handle(source_data)
+
+      #can_handle? handler = Handler.new(revert: @options[:revert], tsort: @options[:tsort])
+      #processed_data = handler.process(parsed_data)
 
       converter = converter_factory(object_loader, @options[:format])
       result = converter.convert(processed_data)
