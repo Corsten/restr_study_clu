@@ -51,10 +51,7 @@ class Application
       parsed_data = parser.parse(source_data)
 
       handler = handler_factory(object_loader, @options)
-      processed_data = handler.handle(source_data)
-
-      #can_handle? handler = Handler.new(revert: @options[:revert], tsort: @options[:tsort])
-      #processed_data = handler.process(parsed_data)
+      processed_data = handler.handle(parsed_data)
 
       converter = converter_factory(object_loader, @options[:format])
       result = converter.convert(processed_data)
