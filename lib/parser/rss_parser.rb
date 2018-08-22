@@ -1,6 +1,8 @@
-require_rel 'xml_parser'
+require_rel 'concerns/xml_parser'
 
-class RssParser < XmlParser
+class RssParser
+  include XmlParser
+
   def self.can_pars?(doc)
     doc.root.name == 'rss'
   end

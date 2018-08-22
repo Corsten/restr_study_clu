@@ -1,8 +1,4 @@
-class XmlParser
-  def self.can_pars?(doc)
-    false
-  end
-
+module XmlParser
   def self.parse(node)
     if node.element?
       result_data = {}
