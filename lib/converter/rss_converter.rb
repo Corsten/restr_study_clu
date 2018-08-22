@@ -1,6 +1,12 @@
 require 'rss'
 
 class RssConverter
+  DEFAULT_TITLE = 'Test title'
+  DEFAULT_LINK = 'Test link'
+  DEFAULT_DESCRIPTION = 'Test description'
+  DEFAULT_LANGUAGE = 'Test language'
+  DEFAULT_ABOUT = 'Rest test rss converter'
+
   def self.can_convert?(format)
     format == 'rss'
   end
@@ -15,11 +21,11 @@ class RssConverter
         end
       end
 
-      m.channel.about = 'Rest test rss converter' if m.channel.about.nil?
-      m.channel.title = 'Test title' if m.channel.title.nil?
-      m.channel.link = 'Test link' if m.channel.link.nil?
-      m.channel.description = 'Test description' if m.channel.description.nil?
-      m.channel.language = 'Test language' if m.channel.language.nil?
+      m.channel.about = DEFAULT_ABOUT if m.channel.about.nil?
+      m.channel.title = DEFAULT_TITLE if m.channel.title.nil?
+      m.channel.link = DEFAULT_LINK if m.channel.link.nil?
+      m.channel.description = DEFAULT_DESCRIPTION if m.channel.description.nil?
+      m.channel.language = DEFAULT_LANGUAGE if m.channel.language.nil?
 
       m.channel.updated = Time.now
 

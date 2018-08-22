@@ -1,6 +1,10 @@
 require 'rss'
 
 class AtomConverter
+  DEFAULT_ID = 'Restr'
+  DEFAULT_TITLE = 'Test title'
+  DEFAULT_AUTHOR = 'Restr'
+
   def self.can_convert?(format)
     format == 'atom'
   end
@@ -13,9 +17,9 @@ class AtomConverter
         end
       end
 
-      m.channel.id = 'Restr' if m.channel.id.nil?
-      m.channel.title = 'Test title' if m.channel.title.nil?
-      m.channel.author = 'Restr' if m.channel.author.nil?
+      m.channel.id = DEFAULT_ID if m.channel.id.nil?
+      m.channel.title = DEFAULT_TITLE if m.channel.title.nil?
+      m.channel.author = DEFAULT_AUTHOR if m.channel.author.nil?
 
       m.channel.updated = Time.now
 
