@@ -10,30 +10,30 @@ class Application
     @options = options
   end
 
-  def reader_factory(loader, source)
-    readers_list = loader.load('reader')
-    reader_object = readers_list.find { |reader| reader.can_read?(source) }
+  def reader_factory(options)
+    readers_list = options[:loader].load('reader')
+    reader_object = readers_list.find { |reader| reader.can_read?(options[:source]) }
     reader = reader_object.new
     reader
   end
 
-  def parser_factory(loader, source)
-    parsers_list = loader.load('parser')
-    parser_object = parsers_list.find { |parser| parser.can_pars?(source) }
+  def parser_factory(options)
+    parsers_list = options[:loader].load('parser')
+    parser_object = parsers_list.find { |parser| parser.can_pars?(options[:source]) }
     parser = parser_object.new
     parser
   end
 
-  def handler_factory(loader, options)
-    handler_list = loader.load('handler')
-    handler_object = handler_list.find { |handler| handler.can_handle?(options) }
+  def handler_factory(options)
+    handler_list = options[:loader].load('handler')
+    handler_object = handler_list.find { |handler| handler.can_handle?(options[:instructions]) }
     handler = handler_object.new
     handler
   end
 
-  def converter_factory(loader, format)
-    converters_list = loader.load('converter')
-    converter_object = converters_list.find { |parser| parser.can_convert?(format) }
+  def converter_factory(options)
+    converters_list = options[:loader].load('converter')
+    converter_object = converters_list.find { |parser| parser.can_convert?(options[:format]) }
     converter = converter_object.new
     converter
   end
@@ -43,17 +43,17 @@ class Application
 
     object_loader = ObjectLoader.new(root_dir: './lib')
 
-    reader = reader_factory(object_loader, source)
+    reader = reader_factory(loader: object_loader, source: source)
     source_data = reader.read(source)
 
     if source_data
-      parser = parser_factory(object_loader, source_data)
+      parser = parser_factory(loader: object_loader, source: source_data)
       parsed_data = parser.parse(source_data)
 
-      handler = handler_factory(object_loader, @options)
+      handler = handler_factory(loader: object_loader, instructions: @options)
       processed_data = handler.handle(parsed_data)
 
-      converter = converter_factory(object_loader, @options[:format])
+      converter = converter_factory(loader: object_loader, format: @options[:format])
       result = converter.convert(processed_data)
     end
 
