@@ -27,7 +27,7 @@ class Application
   def handler_factory(options)
     handler_list = options[:loader].load('handler')
     handler_object = handler_list.find { |handler| handler.can_handle?(options[:instructions]) }
-    handler = handler_object.new
+    handler = handler_object&.new
     handler
   end
 
@@ -51,7 +51,7 @@ class Application
       parsed_data = parser.parse(source_data)
 
       handler = handler_factory(loader: object_loader, instructions: @options)
-      processed_data = handler.handle!(parsed_data)
+      processed_data = handler ? handler.handle!(parsed_data) : parsed_data
 
       converter = converter_factory(loader: object_loader, format: @options[:format])
       result = converter.convert(processed_data)
