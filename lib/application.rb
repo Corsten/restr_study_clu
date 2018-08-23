@@ -51,10 +51,10 @@ class Application
       parsed_data = parser.parse(source_data)
 
       handler = handler_factory(loader: object_loader, instructions: @options)
-      processed_data = handler ? handler.handle!(parsed_data) : parsed_data
+      parsed_data[:items] = handler ? handler.handle(parsed_data[:items]) : parsed_data
 
       converter = converter_factory(loader: object_loader, format: @options[:format])
-      result = converter.convert(processed_data)
+      result = converter.convert(parsed_data)
     end
 
     puts result
