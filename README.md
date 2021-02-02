@@ -1,2 +1,2 @@
-# restr_study_clu
-Restream study repo. Console line utility.
+Console line utility.
+Консольное ruby приложение для чтения данных (новостей) из xml файла или по удаленному URL и конвертации в формат rss или atom. С возможностью перобразования: обратная сортировка и сортировка по дате побликации.
